@@ -15,6 +15,21 @@ const getImageComponent = config => class Image extends Component {
     hovered: false,
   };
 
+  handleClick = (e) =>{
+    console.log("e.target",e.target)
+    const height = e.target.style.height;
+    const width = e.target.style.width;
+    if(height && width){
+      const { block, contentState } = this.props;
+      const entityKey = block.getEntityAt(0);
+      contentState.mergeEntityData(
+        entityKey,
+        { height, width },
+      );
+      config.onChange(EditorState.push(config.getEditorState(), contentState, 'change-block-data'));
+    }
+  }
+  
   setEntityAlignmentLeft: Function = (): void => {
     this.setEntityAlignment('left');
   };
@@ -100,20 +115,22 @@ const getImageComponent = config => class Image extends Component {
         )}
       >
         <span className="rdw-image-imagewrapper">
-          <img
-            src={src}
-            alt={alt}
-            style={{
-              height,
-              width,
-            }}
-          />
           {
             !isReadOnly() && hovered && isImageAlignmentEnabled() ?
               this.renderAlignmentOptions(alignment)
               :
               undefined
           }
+          <span className="rdw-image" onClick={this.handleClick}>
+            <img
+              src={src}
+              alt={alt}
+              style={{
+                height,
+                width,
+              }}
+            />
+          </span>
         </span>
       </span>
     );
