@@ -56,7 +56,7 @@ class WysiwygEditor extends Component {
       props.customBlockRenderFunc
     );
     this.editorProps = this.filterEditorProps(props);
-    this.customStyleMap = this.getStyleMap(props);
+    // this.customStyleMap = this.getStyleMap(props);
     this.compositeDecorator = this.getCompositeDecorator(toolbar);
     const editorState = this.createEditorState(this.compositeDecorator);
     extractInlineStyle(editorState);
@@ -104,15 +104,15 @@ class WysiwygEditor extends Component {
         newState.editorState = EditorState.createEmpty(this.compositeDecorator);
       }
     }
-    if (
-      prevProps.editorState !== editorState ||
-      prevProps.contentState !== contentState
-    ) {
-      extractInlineStyle(newState.editorState);
-    }
+    // if (
+    //   prevProps.editorState !== editorState ||
+    //   prevProps.contentState !== contentState
+    // ) {
+    //   extractInlineStyle(newState.editorState);
+    // }
     if (Object.keys(newState).length) this.setState(newState);
     this.editorProps = this.filterEditorProps(this.props);
-    this.customStyleMap = this.getStyleMap(this.props);
+    // this.customStyleMap = this.getStyleMap(this.props);
   }
 
   onEditorBlur = () => {
